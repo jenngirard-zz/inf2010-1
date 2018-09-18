@@ -69,5 +69,8 @@ public class Main
 		wName = "Edsger Dijkstra";
 		new DisplayImageWindow(wName, pmp);
 		
+		hpmp.resize(hpmp.height*2,hpmp.width*3);
+		new DisplayImageWindow("test",hpmp);
+		
 	}
 }
