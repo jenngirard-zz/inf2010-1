@@ -16,7 +16,7 @@ public class QueueMain
 			pushCounter++;
 		}
 		
-		if(arrayQueue.size() != COUNT*2 || listQueue.size() != COUNT*2)
+		if(arrayQueue.size() != COUNT*2  || listQueue.size() != COUNT*2)
 		{
 			System.out.println("Erreur: La taille de la file n'est egale a " + COUNT + " apres avoir ajoute " + COUNT + " elements");
 		}
