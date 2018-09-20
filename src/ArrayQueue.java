@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class ArrayQueue<AnyType> implements Queue<AnyType>
 {
