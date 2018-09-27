@@ -45,7 +45,8 @@ public class QuadraticSpacePerfectHashing<AnyType>
 	{
 		// A completer
 		int key = getKey(x);
-		return containsKey(key);
+		if(Size()==0 || items[key] == null) return false;
+		return (items[key].equals(x));
 	}
 
 	public void remove (AnyType x) {
@@ -89,6 +90,8 @@ public class QuadraticSpacePerfectHashing<AnyType>
 			for(; index < array.size(); index++) {
 				int key = getKey(array.get(index));
 				if(containsKey(key)) {
+					makeEmpty();
+					//items = (AnyType[]) new Object[m];
 					break; //s'il y a collision on recommence le processus...?
 				}
 				items[key]=array.get(index);
@@ -103,7 +106,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		
 		for(int i = 0; i < Size(); i++) {
 			if(containsKey(i)) {
-				result += "(" + i + "," + items[i].toString() + ") \n";
+				result += "(clé_" + i + ", " + items[i].toString() + ") ";
 			}
 		}
 		

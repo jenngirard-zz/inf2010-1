@@ -32,52 +32,32 @@ public class LinearSpacePerfectHashing<AnyType>
 
 		if(array == null || array.size() == 0)
 		{
-			// A completer
+
 			a =  b = 0; data = null;
 			return;
 		}
 		if(array.size() == 1)
 		{
 			a = b = 0;
-			data = (QuadraticSpacePerfectHashing<AnyType>[]) new Object[1];
+			data = new QuadraticSpacePerfectHashing[1];
 			data[0].SetArray(array);
-			// A completer
 			return;
 		}
+		a =  generator.nextInt(p-1)+1;
+		b = generator.nextInt(p);
+		data = new QuadraticSpacePerfectHashing[array.size()];
 		
-		data = (QuadraticSpacePerfectHashing<AnyType>[]) new Object[array.size()];
-		/*
-		int[] keys = new int[array.size()]; 
-		for (int i =0; i<array.size(); i++) {
-			keys[i]= getKey(array.get(i));			
+		for(int i = 0; i < array.size(); i++) { //chaque cle
+			ArrayList<AnyType> list = new ArrayList<AnyType>();
+			for(int j = 0; j < array.size(); j++) { // quel array
+				if(getKey(array.get(j)) == i) {
+					list.add(array.get(j));
+				}
+			}
+			data[i] = new QuadraticSpacePerfectHashing<AnyType>(list);
 		}
 		
-		for (int i =0; i<array.size(); i++) {
-			ArrayList<AnyType>
-			for (int j =0; j<array.size(); j++) {
-				
-				if (keys[j]==i)
-				
-			}
-		}
-		*/
 		
-		// A completer
-		for(int i = 0 ; i <array.size() ; i ++) {
-			int key = getKey(array.get(i));
-			int size = 0;
-			for(int j = 0; j < data[key].Size() ; j++) {
-				if(data[key].containsKey(j))
-					size++;
-			}
-			ArrayList<AnyType> arrayValues = new ArrayList<AnyType>(size);
-			for(int j = 0; j < data[key].Size() ; j++) {
-				if(data[key].containsKey(j))
-					arrayValues.add(data[key].items[j]);
-			}
-			arrayValues.add(array.get(i));
-			data[key] = new QuadraticSpacePerfectHashing<AnyType>(arrayValues);
-		}
 	}
 
 	public int Size()
@@ -92,40 +72,47 @@ public class LinearSpacePerfectHashing<AnyType>
 		return size;
 	}
 
-	public boolean containsKey(int key)
-	{
-		// A completer
+	public boolean containsKey(int key) {
+		if(data==null) {
+			return false;
+		}
 		
-
+		return(data[key]!=null);
 	}
 	
 	public int getKey (AnyType x) {
-		// A completer
 		
+		return(((a*x.hashCode()+b)%p)%data.length);
 	}
 	
 	public boolean containsValue (AnyType x) {
-		// A completer
-
+		int key = getKey(x);
+		if(data == null || data[key] == null) return false;
+		return(data[key].containsValue(x));
 	}
 	
 	public void remove (AnyType x) {
 		// A completer
-		
+		int key = getKey(x);
+		data[key].remove(x);
 	}
 
 	public String toString () {
 		String result = "";
 		
-		// A completer
-		
-		
+		for(int i = 0 ; i < data.length; i++) {
+			result += "[clé " + i + "] ->" + data[i].toString() + "\n";
+		}
 		return result; 
 	}
 
 	public void makeEmpty () {
 		// A completer
-
+		for(int i=0; i < data.length; i++) {
+			if(data[i]!=null)
+				data[i].makeEmpty();
+		}
+		data=null;
    	}
 	
 }
